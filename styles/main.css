@@ -78,6 +78,11 @@ body {
   clear: both;
 }
 
+.links-container:active {
+  color: rgb(233,50,117);
+  background-color: white;
+}
+
 /* medium and small screens (640px) */
 @media (min-width: 640px) {
   html { font-size: 112%; }
