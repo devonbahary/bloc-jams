@@ -36,6 +36,31 @@ var albumMarconi = {
   ]
 };
 
+// Assignment 9 - my own album
+var albumLamar = {
+  title: "Damn",
+  artist: "Kendrick Lamar",
+  label: "Top Dawg",
+  year: "2017",
+  albumArtUrl: "assets/images/album_covers/Damn-Kendrick-Lamar.jpeg",
+  songs: [
+    { title: "Blood", duration: "1:58" },
+    { title: "DNA", duration: "3:05" },
+    { title: "Yah", duration: "2:40"},
+    { title: "Element", duration: "3:28"},
+    { title: "Feel", duration: "3:34"},
+    { title: "Loyalty", duration: "3:47"},
+    { title: "Pride", duration: "4:35"},
+    { title: "Humble", duration: "2:57"},
+    { title: "Lust", duration: "5:07"},
+    { title: "Love", duration: "3:33"},
+    { title: "XXX", duration: "4:14"},
+    { title: "Fear", duration: "7:40"},
+    { title: "God", duration: "4:08"},
+    { title: "Duckworth", duration: "4:08"}
+  ]
+};
+
 
 // generates song row content
 var createSongRow = function(songNumber, songName, songLength) {
@@ -72,4 +97,23 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
+
+  // Add an event listener to the album cover. When a user clicks it, the album
+  // page content should toggle between the three album objects: albumPicasso,
+  // albumMarconi, and your album object.
+
+  // grabbing 'album-cover-art' element
+  var albumCover = document.getElementsByClassName('album-cover-art')[0];
+  // adding event listener ('click')
+  albumCover.addEventListener('click', function(event) {
+    var albumTitle = document.getElementsByClassName('album-view-title')[0].textContent;
+    // conditional statement to check current album displayed
+    if (albumTitle === "The Colors") { setCurrentAlbum(albumMarconi); }
+    else if (albumTitle === "The Telephone") { setCurrentAlbum(albumLamar); }
+    else if (albumTitle === "Damn") { setCurrentAlbum(albumPicasso); }
+  });
+
+  // adding 'pointer' cursor to the 'album-cover-art' element to signal
+  // interactivity
+  albumCover.style.cursor = "pointer";
 };
