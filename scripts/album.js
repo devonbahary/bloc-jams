@@ -36,12 +36,37 @@ var albumMarconi = {
   ]
 };
 
+// Assignment 9 - my own album
+var albumLamar = {
+  title: "Damn",
+  artist: "Kendrick Lamar",
+  label: "Top Dawg",
+  year: "2017",
+  albumArtUrl: "assets/images/album_covers/Damn-Kendrick-Lamar.jpeg",
+  songs: [
+    { title: "Blood", duration: "1:58" },
+    { title: "DNA", duration: "3:05" },
+    { title: "Yah", duration: "2:40"},
+    { title: "Element", duration: "3:28"},
+    { title: "Feel", duration: "3:34"},
+    { title: "Loyalty", duration: "3:47"},
+    { title: "Pride", duration: "4:35"},
+    { title: "Humble", duration: "2:57"},
+    { title: "Lust", duration: "5:07"},
+    { title: "Love", duration: "3:33"},
+    { title: "XXX", duration: "4:14"},
+    { title: "Fear", duration: "7:40"},
+    { title: "God", duration: "4:08"},
+    { title: "Duckworth", duration: "4:08"}
+  ]
+};
+
 
 // generates song row content
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
     '<tr class="album-view-song-item">'
-  + '  <td class="song-item-number">' + songNumber + '</td>'
+  + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
   + '  <td class="song-item-title">' + songName + '</td>'
   + '  <td class="song-item-duration">' + songLength + '</td>'
   + '</tr>'
@@ -70,6 +95,48 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+
+// elements we'll be adding event listeners to
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var songRows = document.getElementsByClassName('album-view-song-item');
+
+// album button templates
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+
+
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
+
+  songListContainer.addEventListener('mouseover', function(event) {
+    // only target individual song rows during event delegation
+    if (event.target.parentElement.className === 'album-view-song-item') {
+      event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+    }
+  });
+
+  for (var i = 0; i < songRows.length; i++) {
+    songRows[i].addEventListener('mouseleave', function(event) {
+      // selects first child element, which is the song-item-number element
+      this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+    });
+  }
+
+  // Add an event listener to the album cover. When a user clicks it, the album
+  // page content should toggle between the three album objects: albumPicasso,
+  // albumMarconi, and your album object.
+
+  // grabbing 'album-cover-art' element
+  var albumCover = document.getElementsByClassName('album-cover-art')[0];
+  // adding event listener ('click')
+  albumCover.addEventListener('click', function(event) {
+    var albumTitle = document.getElementsByClassName('album-view-title')[0].textContent;
+    // conditional statement to check current album displayed
+    if (albumTitle === "The Colors") { setCurrentAlbum(albumMarconi); }
+    else if (albumTitle === "The Telephone") { setCurrentAlbum(albumLamar); }
+    else if (albumTitle === "Damn") { setCurrentAlbum(albumPicasso); }
+  });
+
+  // adding 'pointer' cursor to the 'album-cover-art' element to signal
+  // interactivity
+  albumCover.style.cursor = "pointer";
 };
