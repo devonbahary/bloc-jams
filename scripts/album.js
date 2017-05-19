@@ -75,11 +75,19 @@ var setCurrentAlbum = function(album) {
 //  => given an element and a target class, traverses up the DOM tree to find a
 //  => parent element of that target class
 var findParentByClassName = function(element, findClass) {
-  var currentParent = element.parentElement;
-  while (currentParent != null && currentParent.className !== findClass) {
-    currentParent = currentParent.parentElement;
+  if (element.parentElement === null) {
+    console.log("No parent found.");
+  } else {
+    var currentParent = element.parentElement;
+    while (currentParent != null && currentParent.className !== findClass) {
+      currentParent = currentParent.parentElement;
+    }
+    if (currentParent === null) {
+      console.log("No parent found with that class name.");
+    } else {
+      return currentParent;
+    }
   }
-  return currentParent;
 };
 
 // getSongItem(element)
