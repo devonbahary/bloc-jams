@@ -98,7 +98,7 @@ var getSongNumberCell = function(number) {
 //  => sets global vars 'currentlyPlayingSongNumber' and 'currentSongFromAlbum'
 // according to 'songNumber'
 var setSong = function(songNumber) {
-  currentlyPlayingSongNumber = songNumber;
+  currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
 };
 
